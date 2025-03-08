@@ -1,14 +1,11 @@
 import pandas as pd
-import re
 import os
 
 from openpyxl import load_workbook
 from openpyxl.styles import Border, Side, Alignment, Font, PatternFill
 from openpyxl.drawing.image import Image
-from openpyxl.drawing.spreadsheet_drawing import AnchorMarker, OneCellAnchor
-from openpyxl.utils.units import pixels_to_EMU
 
-from excel_to_pdf import convert_to_pdf
+from excel_to_pdf import convert_to_pdf     # it is just another python file which contains the function to convert excel sheet to pdf
 
 ################################################################################################################################################################################################################
 
@@ -19,18 +16,19 @@ from excel_to_pdf import convert_to_pdf
 # 4) Store other details like sem, subject, time, etc. into variables
 # 5) Store the rearranged content into a new excel file - "output_qp_format.xlsx" 
 
-def abs_path(f_name):
+def abs_path(f_name):                           # required because the win32com module int the excel_to_pdf.py file takes in only absolute paths
     return os.path.abspath(f_name) 
 
-df = pd.read_excel("test.xlsx")
+df = pd.read_excel("input_excel_file.xlsx") # Please enter the name or path of the input excel file. 
 
-# creating a new dataframe df1 and copying the contents from text.xlsx to df1 through df
+# creating a new dataframe - df1, and copying the contents from input_excel_file.xlsx to df1 through df
 df1 = pd.DataFrame()
 
 #df1["q_no"]  = df["Q_No"].str.extract(r'(\d+)')
-df1["q_no"] = df["Q_No"].apply(lambda x: int(f"{x[:-1]}") if x[-1].lower() == 'a' else " ")
-df1["sub_q"] = df["Q_No"].apply(lambda x: f"{x[-1].lower()}.")   
+df1["q_no"] = df["Q_No"].apply(lambda x: int(f"{x[:-1]}") if x[-1].lower() == 'a' else " ") # selects only the integer (1,2,3...) part and stores it in q_no series
+df1["sub_q"] = df["Q_No"].apply(lambda x: f"{x[-1].lower()}.")   # selects the alphabet (a/b/c...) part and stores it in sub_q series
 
+# using .copy() for deepcopy just for safety
 df1["Question"] = df["Question"].copy()
 df1["Marks"] = df["Marks"].copy()
 df1["L"] = df["L"].copy()
@@ -87,7 +85,7 @@ border_style = Border(left=Side(style="thin"),
 
 # Institution Details
 RNSIT_header = [
-    "RN SHETTY TRUST\u00AE",
+    "RN SHETTY TRUST\u00AE", # \u00AE is the unicode for the encircled "R" trade mark
     "RNS INSTITUTE OF TECHNOLOGY",
     "Autonomous Institution Affiliated to VTU, Recognized by GOK, Approved by AICTE",
     "(NAAC 'A+ Grade' Accredited, NBA Accredited (UGCSE, ECE, ISE, EIE and EEE))",
@@ -189,7 +187,7 @@ for i in pos:
     ws.insert_rows(row_pos)
     ws.merge_cells(f"A{row_pos}:F{row_pos}")
     
-    if ws[f"A{row_pos+1}"].value % 2 == 0:
+    if ws[f"A{row_pos+1}"].value % 2 == 0:     # This part exclusively adds "OR" between the specific two question numbers like 1-2, 3-4, etc.
             ws[f"A{row_pos}"] = "OR"
     
     for row in ws[f"A{row_pos}:F{row_pos}"]:
@@ -199,6 +197,8 @@ for i in pos:
     ws[f"A{row_pos}"].alignment = Alignment(horizontal="center", vertical="center")
         
     step += 1
+    
+# from here the min_row is considered to be 19 because the actual table containing questions start from row 19
 
 # Alignment
 for row in ws.iter_rows(min_row=19, max_row=ws.max_row, min_col=1, max_col=ws.max_column): 
@@ -232,6 +232,7 @@ for row in ws.iter_rows(min_row=19, max_row=ws.max_row, min_col=1, max_col=ws.ma
         if cell.value != None:
             cell.border = border_style
           
+# adding the information regarding RBT at the last row
 max_r = ws.max_row + 1           
 ws.merge_cells(f"A{max_r}:F{max_r}")            
 ws[f"A{max_r}"] = "*Revised Bloom’s Taxonomy: L1-Remember, L2-Understand, L3-Apply, L4-Analyze, L5-Evaluate, L6-Create"
