@@ -76,15 +76,15 @@ The formatted Excel file (output_qp_format.xlsx) and the PDF version will be gen
 ---
 
 ## 🚧 Limitations
-1️⃣ The USN (University Seat Number) in the top-right corner is a static .jpeg image, fixed as 1RN__**CS**___, and does not dynamically update based on the input branch.
+1️⃣ The USN (University Seat Number) in the top-right corner is a static .jpeg image, fixed as 1RN__**CS**___, and does not dynamically update based on the input branch.<br>
 2️⃣ Certain sections of the code can be optimized to reduce redundancy and improve efficiency.
 
 ---
 
 ## 🚀 Potential Improvements
-✅ Convert the USN image into selectable text, allowing it to dynamically change based on the input branch.
-✅ Refactor and optimize the code to enhance readability, modularity, and maintainability.
-✅ Automate column width adjustments and row insertions to eliminate hardcoded values.
+✅ Convert the USN image into selectable text, allowing it to dynamically change based on the input branch.<br>
+✅ Refactor and optimize the code to enhance readability, modularity, and maintainability.<br>
+✅ Automate column width adjustments and row insertions to eliminate hardcoded values.<br>
 ✅ Improve image handling by dynamically loading images from a specified directory instead of using static paths.
 
 ---
