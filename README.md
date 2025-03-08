@@ -52,8 +52,8 @@ This project automates the process of formatting a raw Excel file into a structu
 To get a copy of this project on your local machine, run the following command:
 
 ```
-git clone https://github.com/your-username/Question-Paper-Formatter.git
-cd Question-Paper-Formatter
+>>> git clone https://github.com/your-username/Question-Paper-Formatter.git
+>>> cd Question-Paper-Formatter
 ```
 
 ### 2️⃣ Install Dependencies
