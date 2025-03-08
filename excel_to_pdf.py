@@ -13,7 +13,7 @@ def convert_to_pdf(ex_path):
     ws.PageSetup.PaperSize = 9  # A4 Paper Size
     ws.PageSetup.Zoom = False  
     ws.PageSetup.FitToPagesWide = 1  
-    ws.PageSetup.FitToPagesTall = 1  
+    ws.PageSetup.FitToPagesTall = False  
 
     ws.ExportAsFixedFormat(0, pdf_path)
 

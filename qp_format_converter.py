@@ -1,9 +1,20 @@
 import pandas as pd
 import re
+import os
+
 from openpyxl import load_workbook
 from openpyxl.styles import Border, Side, Alignment, Font
+from openpyxl.drawing.image import Image
+
 from excel_to_pdf import convert_to_pdf
-import os
+
+################################################################################################################################################################################################################
+
+# below code section's function is to:
+# 1) collect the content from the test.xlsx file 
+# 2) load it into a dataframe 
+# 3) rearrange it into a proper format 
+# 4) Store the rearranged content into a new excel file - "output_qp_format.xlsx" 
 
 def abs_path(f_name):
     return os.path.abspath(f_name) 
@@ -14,8 +25,8 @@ df = pd.read_excel("test.xlsx")
 df1 = pd.DataFrame()
 
 #df1["q_no"]  = df["Q_No"].str.extract(r'(\d+)')
-df1["q_no"] = df["Q_No"].apply(lambda x: f"Q.{x[:-1]}" if x[-1] == 'a' else " ")
-df1["sub_q"] = df["Q_No"].apply(lambda x: f"{x[-1]}.")   
+df1["q_no"] = df["Q_No"].apply(lambda x: f"Q.{x[:-1]}" if x[-1].lower() == 'a' else " ")
+df1["sub_q"] = df["Q_No"].apply(lambda x: f"{x[-1].lower()}.")   
 
 df1["Question"] = df["Question"].copy()
 df1["Marks"] = df["Marks"].copy()
@@ -27,11 +38,29 @@ df1["CO"] = df["CO"].str.upper()
 
 # saving the dataframe into excel sheet
 file_name = "output_qp_format.xlsx"
-df1.to_excel(file_name, index=False, header=False, sheet_name="Sheet1")
+df1.to_excel(file_name, index=False, header=False, sheet_name="Sheet1", startrow=6)
+
+################################################################################################################################################################################################################
+
+# below codes's function is to:
+# 1) Fixing the width of each column
+# 2) Add new merged cell with value "MODULE - no." or "OR" after every two question numbers
+# 3) Basic text formating like:
+#             - Text alignment 
+#             - converting to Bold
+#             - changing font style to "Times New Roman"
+#             - Text wrapping for the "Question" column 
+# 4) Adding border to the whole content
+# 5) Saving the excel file and converting it to PDF by calling a function from excel_to_pdf.py file
 
 # loading Worksheet into python
 wb = load_workbook(file_name)
 ws = wb.active
+
+img = Image("header image.jpeg")  # Replace with your image path
+ws.add_image(img, "A1")  # Insert at A1
+img.width = 100
+img.height = 20.84
 
 # Fixing the width of each column
 ws.column_dimensions["A"].width = 6  
@@ -46,13 +75,13 @@ border_style = Border(left=Side(style="thin"),
                       top=Side(style="thin"), 
                       bottom=Side(style="thin"))
 
-# To get the row position where MODULE/OR value is to be added
+# To get the row position where "MODULE/OR" value is to be added
 pos = []
 for i in range(1, ws.max_row+1):
     if ws[f"B{i}"].value == "a.":
         pos.append(i)
 
-# for merging cells to add MODULE and OR cell values
+# for merging cells to add "MODULE" and "OR" cell values
 step = 0
 mod_cnt = 2
 for i in pos:
@@ -66,7 +95,7 @@ for i in pos:
         numbers = re.findall(r'\d+', cell_val)  
         int_part = int("".join(numbers)) if numbers else None  
         
-        if int_part % 2 == 0:
+        if int_part % 2 == 1:
             ws[f"A{row_pos}"].value = f"MODULE - {mod_cnt}"
             mod_cnt += 1
         else:
@@ -116,5 +145,6 @@ for row in ws.iter_rows(min_row=1, max_row=ws.max_row, min_col=1, max_col=ws.max
 wb.save(file_name)
 print(f"{file_name} created successfully!")
 
+# function call to excel_to_pdf.py 
 convert_to_pdf(abs_path(file_name))
 
