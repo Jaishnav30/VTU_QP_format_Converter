@@ -10,7 +10,7 @@ from excel_to_pdf import convert_to_pdf     # it is just another python file whi
 ################################################################################################################################################################################################################
 
 # below code section's function is to:
-# 1) collect the content from the test.xlsx file 
+# 1) collect the content from the input_excel_file.xlsx file 
 # 2) load it into a dataframe 
 # 3) rearrange it into a proper format 
 # 4) Store other details like sem, subject, time, etc. into variables
