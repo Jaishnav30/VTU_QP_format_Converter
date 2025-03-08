@@ -29,13 +29,13 @@ This project automates the process of formatting a raw Excel file into a structu
 ## 📂 Project Structure  
 ```
 📂 Question-Paper-Formatter
-│-- 📄 input_excel_file.xlsx # Input file (raw question data)
-│-- 📄 output_qp_format.xlsx # Output file (formatted question paper)
-│-- 🖼️ rnsit_logo.jpeg # College logo
-│-- 🖼️ usn.jpeg # USN header image
-│-- 📄 excel_to_pdf.py # Script for converting Excel to PDF
-│-- 📄 main.py # Main script for formatting Excel
-│-- 📄 README.md # Project documentation
+│-- 📄 input_excel_file.xlsx                   # Input file (raw question data)
+│-- 📄 output_qp_format.xlsx                   # Output file (formatted question paper)
+│-- 🖼️ rnsit_logo.jpeg                         # College logo
+│-- 🖼️ usn.jpeg                                # USN header image
+│-- 📄 Run_this_file.py                        # Main script for formatting Excel
+│-- 📄 excel_to_pdf.py                         # Script for converting Excel to PDF
+│-- 📄 README.md                               # Project documentation
 ```
 
 ## 📖 How It Works  
