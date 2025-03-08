@@ -47,19 +47,54 @@ This project automates the process of formatting a raw Excel file into a structu
 6️⃣ Save the output as **output_qp_format.xlsx**  
 7️⃣ Convert the formatted Excel file to PDF  
 
-## 🏃‍♂️ How to Run the Project  
+## 🚀 Getting Started
+### 1️⃣ Clone the Repository
+To get a copy of this project on your local machine, run the following command:
 
-### 1️⃣ Install dependencies:  
+```
+git clone https://github.com/your-username/Question-Paper-Formatter.git
+cd Question-Paper-Formatter
+```
+
+### 2️⃣ Install Dependencies
+Make sure you have Python installed, then install the required dependencies:
+
 ```
 pip install pandas openpyxl
 ```
 
-### 2️⃣ Place the raw Excel file (input_excel_file.xlsx) in the project folder.
+### 3️⃣ Place the raw Excel file (input_excel_file.xlsx) in the project folder.
 
-### 3️⃣ Run the script:
+### 4️⃣ Run the script:
 
 ```
 python Run_this_file.py
 ```
 
-The formatted Excel file (output_qp_format.xlsx) and the PDF version will be generated automatically.
+### The formatted Excel file (output_qp_format.xlsx) and the PDF version will be generated automatically.
+
+## 🚧 Limitations
+1️⃣ The USN (University Seat Number) in the top-right corner is a static .jpeg image, fixed as 1RN__**CS**___, and does not dynamically update based on the input branch.
+2️⃣ Certain sections of the code can be optimized to reduce redundancy and improve efficiency.
+
+## 🚀 Potential Improvements
+✅ Convert the USN image into selectable text, allowing it to dynamically change based on the input branch.
+✅ Refactor and optimize the code to enhance readability, modularity, and maintainability.
+✅ Automate column width adjustments and row insertions to eliminate hardcoded values.
+✅ Improve image handling by dynamically loading images from a specified directory instead of using static paths.
+
+💡 If you have any suggestions for further improvements, feel free to contribute! 🤝
+
+## 📌 Example Output
+
+After execution, the script will generate a professionally formatted question paper with proper headers, images, and alignment.
+
+## 📝 Contributions
+
+Feel free to fork this repository and enhance the formatting options or improve the PDF export functionality!
+
+## 🔗 Connect with Me
+
+For any suggestions, reach out via GitHub Issues.
+
+## ⭐ If you find this project useful, don't forget to star the repository! ⭐
